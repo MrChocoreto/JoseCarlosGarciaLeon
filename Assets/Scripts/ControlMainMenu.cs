@@ -7,9 +7,10 @@ public class ControlMainMenu : MonoBehaviour
 {
 
     #region Variables
-
+    [SerializeField] Animator Ani;
     [SerializeField] GameObject Game_Selector;
     [SerializeField] GameObject Button_Start;
+    [SerializeField] bool Scene_Select = false;
 
     #endregion
 
@@ -31,27 +32,40 @@ public class ControlMainMenu : MonoBehaviour
 
     public void Load_GameSelector()
     {
-        Game_Selector.SetActive(true);
-        Button_Start.SetActive(false);
+        Ani.SetInteger("SOG", 2);
+        //Game_Selector.SetActive(true);
+        //Button_Start.SetActive(false);
     }
 
     public void LoadGame()
     {
-        SceneManager.LoadScene("Game");
-        Debug.Log("Game_Loaded");
+        Ani.SetInteger("SOG", 1);
+        Scene_Select = true;
 
     }
 
     public void CreateGame()
     {
-        SceneManager.LoadScene("Game");
-        Debug.Log("New_Game_Created");
+        Ani.SetInteger("SOG", 1);
     }
 
     public void Exit()
     {
         Application.Quit();
         Debug.Log("Game_Closed");
+    }
+
+    public void LoadScene()
+    {
+        SceneManager.LoadScene("Game");
+        if (Scene_Select)
+        {
+            Debug.Log("Game_Loaded");
+        }
+        else
+        {
+            Debug.Log("New_Game_Created");
+        }
     }
 
     #endregion
